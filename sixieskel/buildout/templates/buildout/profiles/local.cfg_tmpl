@@ -1,0 +1,167 @@
+#set $major_version = int($plone_version.split('.')[0])
+#set $pre_plone4 = $major_version < 4
+[buildout]
+extends =
+    base.cfg
+    debug.cfg
+
+\# unzip eggs that are zip safe
+unzip = true
+
+extensions += buildout.dumppickedversions
+
+\# mr.developer settings to always checkout all eggs and force them
+\# to update
+auto-checkout = *
+always-checkout = force
+
+parts =
+    PILwoTk
+#if $plone_version == '3.1'
+    plone
+#end if
+#if $pre_plone4
+    zope2
+#end if
+    \${buildout:base-parts}
+    \${debugging:parts}
+    tags
+\#    tags-update-vi
+#if $pre_plone4
+\#    tags-zope
+#end if
+    omelette
+    i18ndude
+    test
+#if $pre_plone4
+    roadrunner
+#end if
+\#   This should live in the base.cfg parts
+\#   in theory, but this works much better...
+    plonesite
+
+develop = 
+\#    src/my.package
+
+#if $plone_version == '3.1'
+\# Uncomment the following line and the versions.cfg
+\# above to use the production versions locally.
+\#versions = versions
+
+#end if
+#if $plone_version != '3.1'
+[versions]
+\# pin versions locally
+\#some.package = 0.1
+
+#end if
+#if not $pre_plone4
+\# NOTE: latest roadrunner release as of this writing (2/10/10) does
+\#       not support Plone 4. Please check back later :)
+#end if
+
+[tags]
+recipe = z3c.recipe.tag:tags
+eggs = \${instance:eggs}
+
+[tags-update]
+recipe = plone.recipe.command
+command = \${buildout:bin-directory}/tags \${:tag-options}
+update-command = \${:command}
+
+[tags-update-vi]
+<= tags-update
+tag-options = -v
+#if $pre_plone4
+
+[tags-zope]
+# Add this to the parts above if you want to be able to use ctags
+# on the old non-eggified version of Zope2
+recipe = plone.recipe.command
+# the executable to use
+ctags = exctags
+# the location to the zope2 python code
+zope2 = \${zope2:location}/lib/python
+# NOTE: Currently this only generates vi compatible tags
+command = which \${:ctags} > /dev/null && [ -d \${:zope2} ] && \${:ctags} -R -a -f tags \${:zope2} || print "WARNING: no ctags found"
+update-command = \${:command}
+#end if
+
+[test]
+recipe = collective.recipe.z2testrunner
+zope2part = instance
+defaults = 
+    --nowarn
+packages =
+#    my.package
+
+[roadrunner]
+recipe = roadrunner:plone
+packages-under-test =
+\#    my.package
+
+#if $plone_version == '3.1'
+[plone]
+\# XXX pinning our local Plone to the 3.1.x series
+recipe = plone.recipe.plone < 3.2-dev
+
+#end if
+#if $pre_plone4
+[zope2]
+\# allow i18ndude to instll properly
+skip-fake-eggs += 
+    zope.interface
+
+#end if
+[instance]
+#set $http_address = int($http_port_base) + int($local_port_offset)
+http-address = $http_address
+#set $zeo_address = int($zeo_port_base) + int($local_port_offset)
+zeo-address = $zeo_address
+debug-mode = on
+verbose-security = on
+event-log-level = debug
+eggs += \${debugging:eggs}
+zcml += \${debugging:zcml}
+
+\# possibly disable the plone translations since
+\# that slows things down in development mode...
+\#environment-vars +=
+\#    DISABLE_PTS True
+
+[plonesite]
+\# install some debug products automagically
+profiles += 
+\#    collective.workflowed:default
+\#    plone.app.gloworm:default
+    sixfeetup.customfolderalert:default
+
+\# installs paster and Zopeskel
+[zopeskel]
+recipe = zc.recipe.egg
+eggs =
+    \${instance:eggs}
+    PasteScript
+    ZopeSkel
+    tha.coverage
+
+[i18ndude]
+recipe = zc.recipe.egg
+eggs =
+    i18ndude
+    \${instance:eggs}
+#if $pre_plone4
+extra-paths = \${instance:zope2-location}/lib/python
+#end if
+
+\# NOTE: You will need junction.exe in your path to use this on windows:
+\#       http://technet.microsoft.com/en-us/sysinternals/bb896768.aspx
+[omelette]
+recipe = collective.recipe.omelette
+eggs = \${instance:eggs}
+ignore-develop = True
+ignores = setuptools
+#if $pre_plone4
+\# get the entire zope stack into the omelette
+packages = \${zope2:location}/lib/python zope2
+#end if

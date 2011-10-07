@@ -1,0 +1,24 @@
+[buildout]
+extends = release.cfg
+
+\# Uncomment to add the two extra zope clients
+\#parts += instance2 instance3
+
+[instance]
+#set $http_address = int($http_port_base) + int($prod_port_offset)
+#set $zeo_address = int($zeo_port_base) + int($prod_port_offset)
+http-address = $http_address
+zeo-address = $zeo_address
+z2-log-level = CRITICAL
+zodb-cache-size = 15000
+\#effective-user = zope
+
+[instance2]
+<= instance
+#set $http_address += 1
+http-address = $http_address
+
+[instance3]
+<= instance
+#set $http_address += 1
+http-address = $http_address

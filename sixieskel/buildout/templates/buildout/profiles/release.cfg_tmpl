@@ -1,0 +1,28 @@
+[buildout]
+extends =
+    base.cfg
+parts += 
+\#   products-release
+\# This should live in the base.cfg parts
+\# in theory, but this works much better...
+    plonesite
+
+[versions]
+################################
+# pin any development packages
+# 
+# NOTE: these won't be picked up
+#       by the version dumper
+#my.package = 0.1
+
+[instance]
+\# set our common release elements here
+deprecation-warnings = off
+\#products +=
+\#    \${products-release:location}
+
+\# These are the Zope 2 style Products that are in subversion only (no tarball)
+[products-release]
+recipe = infrae.subversion
+urls = 
+\#    https://svn/svn/repo/MyProduct/tags/1.0 MyProduct

@@ -1,0 +1,123 @@
+#set $major_version = int($plone_version.split('.')[0])
+#set $pre_plone4 = $major_version < 4
+#if $pre_plone4
+#set $pyflakes_version = "pyflakes<=0.4"
+#else
+#set $pyflakes_version = "pyflakes"
+#end if
+[debugging]
+parts =
+    ipzope
+    zopepy
+    pylint
+    pyflakes
+    pep8
+    reviewboard
+
+\# plone.reload:
+\#     you can reload the zcml in your site by running the following
+\#     http://<zope host>:<zope port>/@@reload
+\# zope.testrecorder:
+\#     record tests by running the following
+\#     http://<zope host>:<zope port>/++resource++recorder/index.html
+eggs =
+    plone.reload
+    zope.testrecorder
+#if pre_plone4
+    collective.workflowed
+#end if
+\#    Products.ZopeProfiler
+    Products.PDBDebugMode
+    Products.Clouseau
+    Products.PrintingMailHost
+    Products.DocFinderTab
+    Products.signalstack
+    Products.PTProfiler
+    Products.DCWorkflowGraph
+    Products.PolicyTestCase
+    sixfeetup.customfolderalert
+\#    ipdb
+\# XXX READ THE PRODUCT PAGE BEFORE ENABLING
+\# Gloworm + CacheFu may cause issues
+\#    Products.Gloworm
+
+zcml =
+    plone.reload
+    zope.testrecorder
+    collective.workflowed
+    sixfeetup.customfolderalert
+
+\# Here are some interactive shells.  one based on IPython that loads up like zopectl debug
+\# zopepy is a simple interpreter that gives you access to all the eggs/Products but without loading up the Plone site
+
+[ipzope]
+\# a IPython Shell for interactive use with zope running.
+\# you also need to put
+\# https://svn.plone.org/svn/collective/dotipython/trunk/ipy_profile_zope.py
+\# to your \$HOME/.ipython directory for the following to work.
+recipe = zc.recipe.egg
+eggs =
+    ipython
+    \${instance:eggs}
+initialization =
+    import sys, os
+#if $pre_plone4
+    os.environ["SOFTWARE_HOME"] = "\${instance:zope2-location}/lib/python"
+#end if
+    os.environ["INSTANCE_HOME"] = "\${instance:location}"
+    sys.argv[1:1] = "-p zope".split()
+#if $pre_plone4
+extra-paths = \${instance:zope2-location}/lib/python
+#end if
+scripts = ipython=ipzope
+
+[zopepy]
+recipe = zc.recipe.egg
+eggs = \${instance:eggs}
+interpreter = zopepy
+#if $pre_plone4
+extra-paths = \${instance:zope2-location}/lib/python
+#end if
+scripts = zopepy
+
+\# Here are some more coding tools. pylint analyzes Python source code
+\# looking for bugs and signs of poor quality. pyflakes is focused on
+\# identifying common errors quickly without executing Python code.
+\# pep8 is a tool to check your Python code against some of the style
+\# conventions in PEP 8.
+[pylint] 
+recipe = zc.recipe.egg 
+eggs =
+    pylint
+    \${instance:eggs}
+entry-points = pylint=pylint.lint:Run 
+scripts = pylint
+arguments = [ 
+    '--output-format=colorized',
+    '--zope=y',
+    '--reports=no',
+\#Suppress certain errors (interfaces missing __init__, invalid imports etc)
+    '--disable=E0611,F0401,W0232',
+    ] + sys.argv[1:]
+
+[pyflakes]
+recipe = zc.recipe.egg
+scripts = pyflakes
+eggs =
+   ${pyflakes_version}
+\#pyflakes reads sys.argv directly
+entry-points = pyflakes=pyflakes.scripts.pyflakes:main
+
+[pep8]
+recipe = zc.recipe.egg
+eggs =
+   pep8
+
+\# Here we install the client tools to support creating a review request
+\# with our local Review Board install. This recipe creates a bin/post-review
+\# script. More information here:
+\# https://trac.sixfeetup.com/operations/wiki/ReviewBoard
+[reviewboard]
+recipe = zc.recipe.egg
+eggs =
+   RBTools
