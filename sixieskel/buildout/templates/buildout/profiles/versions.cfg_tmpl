@@ -1,7 +1,6 @@
 #set $major_version = int($plone_version.split('.')[0])
 #set $pre_plone4 = $major_version < 4
 \# The Plone version is pinned into the base.cfg by extending a versions.cfg
-\#
 \# These versions will pin our release profiles to a specific version
 \# this will help with repeatability.
 [versions]
