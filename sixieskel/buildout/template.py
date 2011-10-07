@@ -133,7 +133,7 @@ class SixieBuildout(BaseTemplate):
 
     def check_vars(self, vars, cmd):
         result = BaseTemplate.check_vars(self, vars, cmd)
-        if vars['zope_password'] is None:
+        if not vars['zope_password']:
             # for this to work you'll need pwgen installed
             passwd = runCmd('pwgen -acn 9 1')
             if not passwd:
