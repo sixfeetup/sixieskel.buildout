@@ -31,7 +31,6 @@ eggs =
     Products.Clouseau
     Products.PrintingMailHost
     Products.DocFinderTab
-    Products.signalstack
     Products.PTProfiler
     Products.DCWorkflowGraph
     Products.PolicyTestCase
