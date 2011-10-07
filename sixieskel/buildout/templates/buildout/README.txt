@@ -37,9 +37,7 @@ To run unit tests, you can use::
 Installing PIL
 --------------
 
-The buildout will install PIL for you (via the PILwoTK part).  However this is not
-supported on the windows platform.  You may have to remove the PILwoTK part and
-follow the instructions at the bottom for windows setup.
+The buildout will install PIL for you (via the Pillow egg)
 
 Using a different Python installation
 --------------------------------------
