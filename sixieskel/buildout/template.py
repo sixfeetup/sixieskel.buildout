@@ -47,6 +47,7 @@ class SixieBuildout(BaseTemplate):
     _template_dir = 'templates/buildout'
     summary = "A Plone 3.x+ buildout following the Six Feet Up standards"
     category = "Six Feet Up"
+    default_required_structures = ['bootstrap']
     required_templates = []
     use_cheetah = True
     vars = copy.deepcopy(BaseTemplate.vars)
