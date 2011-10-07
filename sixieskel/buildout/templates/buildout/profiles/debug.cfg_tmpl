@@ -44,7 +44,9 @@ eggs =
 zcml =
     plone.reload
     zope.testrecorder
+#if pre_plone4
     collective.workflowed
+#end if
     sixfeetup.customfolderalert
 
 \# Here are some interactive shells.  one based on IPython that loads up like zopectl debug
