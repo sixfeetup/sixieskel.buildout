@@ -35,6 +35,9 @@ eggs =
     Products.DCWorkflowGraph
     Products.PolicyTestCase
     sixfeetup.customfolderalert
+#if not pre_plone4
+    plone.app.debugtoolbar
+#end if
 \#    ipdb
 \# XXX READ THE PRODUCT PAGE BEFORE ENABLING
 \# Gloworm + CacheFu may cause issues
