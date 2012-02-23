@@ -28,7 +28,7 @@ IGNORE_FILES = [
 
 
 def removeFile(dirpath, filename):
-    print "Removing %s from %s%s" %(filename, dirpath, os.sep)
+    print "Removing %s from %s%s" % (filename, dirpath, os.sep)
     os.remove(os.path.join(dirpath, filename))
 
 
