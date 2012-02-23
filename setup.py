@@ -27,5 +27,8 @@ setup(
     entry_points="""
     [paste.paster_create_template]
     sfu_buildout = sixieskel.buildout.template:SixieBuildout
+
+    [templer.templer_structure]
+    sixie_fabfile = sixieskel.buildout.structure:FabFileStructure
     """,
     )
