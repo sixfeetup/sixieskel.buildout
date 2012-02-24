@@ -32,7 +32,7 @@ def removeFile(dirpath, filename):
     os.remove(os.path.join(dirpath, filename))
 
 
-def runCmd(cmd):
+def run_cmd(cmd):
     """Run a command and get back the output
     """
     ret = subprocess.Popen(
@@ -135,7 +135,7 @@ class SixieBuildout(BaseTemplate):
         result = BaseTemplate.check_vars(self, vars, cmd)
         if not vars['zope_password']:
             # for this to work you'll need pwgen installed
-            passwd = runCmd('pwgen -acn 9 1')
+            passwd = run_cmd('pwgen -acn 9 1')
             if not passwd:
                 passwd = 'admin'
             result['zope_password'] = passwd
