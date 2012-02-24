@@ -139,6 +139,9 @@ class SixieBuildout(BaseTemplate):
             if not passwd:
                 passwd = 'admin'
             result['zope_password'] = passwd
+        # XXX: var.structures can't handle this case yet
+        if vars['project_name']:
+            self.required_structures.append('buildouthttp')
         return result
 
     def _buildout(self, output_dir):
@@ -174,17 +177,6 @@ class SixieBuildout(BaseTemplate):
         gitignore_file.close()
         if '.svn' in os.listdir(output_dir):
             subprocess.call('svn add %s' % ignore_fp, shell=True)
-        if project_name:
-            httpauth_string = (
-                "%(project_name)s,https://dist.sixfeetup.com/"
-                "private/%(project_name)s,%(project_name)s-release,"
-                "PASSWORD") % locals()
-            httpauth_fp = os.path.join(output_dir, ".httpauth")
-            httpauth_file = open(httpauth_fp, "w")
-            httpauth_file.write(httpauth_string)
-            httpauth_file.close()
-            if '.svn' in os.listdir(output_dir):
-                subprocess.call('svn add %s' % httpauth_fp, shell=True)
         # if we used the --svn-repo switch then check it in
         if '.svn' in os.listdir(output_dir):
             os.chdir(output_dir)

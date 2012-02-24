@@ -4,7 +4,7 @@
 find-links =
 #if $project_name
 \# In order to use the private dist URL, you will need the username and
-\# password set up in the \${buildout:directory}/.htpasswd file
+\# password set up in the \${buildout:directory}/.httpauth file
 \#    https://dist.sixfeetup.com/private/$project_name
 #end if
     http://dist.sixfeetup.com/public

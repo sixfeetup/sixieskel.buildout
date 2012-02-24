@@ -5,3 +5,9 @@ class FabFileStructure(Structure):
     """Simple structure to add a sixfeetup.deployment fab file
     """
     _structure_dir = 'structures/fabfile'
+
+
+class BuildoutHttp(Structure):
+    """Simple structure to add a .httpauth file
+    """
+    _structure_dir = 'structures/buildouthttp'
