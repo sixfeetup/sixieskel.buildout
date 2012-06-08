@@ -69,7 +69,7 @@ initialization =
     os.environ["SOFTWARE_HOME"] = "\${instance:zope2-location}/lib/python"
 #end if
     os.environ["INSTANCE_HOME"] = "\${instance:location}"
-    sys.argv[1:1] = "-p zope".split()
+    sys.argv[1:1] = "--profile zope2".split()
 #if $pre_plone4
 extra-paths = \${instance:zope2-location}/lib/python
 #end if
