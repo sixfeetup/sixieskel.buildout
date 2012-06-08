@@ -1,0 +1,16 @@
+[buildout]
+base-parts += test
+
+[test]
+recipe = zc.recipe.testrunner
+\# Note that only tests for packages that are explicitly named (instead
+\# of 'implicitly' added to the instance as dependency) can be found.
+\# We want to be able to run tests for our development packages and a
+\# few central packages:
+eggs = 
+#if $project_name
+\#    ${project_name}.policy
+\#    ${project_name}.content
+\#    ${project_name}.theme
+#end if
+defaults = ['--exit-with-status', '--auto-color', '--auto-progress']

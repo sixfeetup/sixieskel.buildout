@@ -1,0 +1,13 @@
+[buildout]
+extends =
+    base.cfg
+    ci_tests.cfg
+
+auto-checkout = *
+always-checkout = force
+
+[instance]
+#set $http_address = int($http_port_base) + int($local_port_offset)
+http-address = $http_address
+#set $zeo_address = int($zeo_port_base) + int($local_port_offset)
+zeo-address = $zeo_address

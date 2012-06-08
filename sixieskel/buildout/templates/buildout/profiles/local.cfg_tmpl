@@ -3,6 +3,7 @@
 [buildout]
 extends =
     base.cfg
+    ci_tests.cfg
     debug.cfg
 
 \# unzip eggs that are zip safe
@@ -31,7 +32,6 @@ parts =
 #end if
     omelette
     i18ndude
-    test
 \#   This should live in the base.cfg parts
 \#   in theory, but this works much better...
     plonesite
@@ -62,14 +62,6 @@ zope2 = \${zope2:location}/lib/python
 command = which \${:ctags} > /dev/null && [ -d \${:zope2} ] && \${:ctags} -R -a -f tags \${:zope2} || print "WARNING: no ctags found"
 update-command = \${:command}
 #end if
-
-[test]
-recipe = collective.recipe.z2testrunner
-zope2part = instance
-defaults = 
-    --nowarn
-packages =
-#    my.package
 
 #if $plone_version == '3.1'
 [plone]
