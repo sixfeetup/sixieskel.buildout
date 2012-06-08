@@ -38,10 +38,6 @@ extends =
 #if $plone_version != '3.1'
     http://dist.plone.org/release/$plone_version/versions.cfg
 #end if
-#if $major_version >= 4
-\# TODO: check to see if there is a more recent plone.app.caching release out
-    http://good-py.appspot.com/release/plone.app.caching/1.0b2
-#end if
     versions.cfg
 versions = versions
 
