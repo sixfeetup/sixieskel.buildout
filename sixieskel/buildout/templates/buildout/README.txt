@@ -117,7 +117,7 @@ release.cfg
 versions.cfg
   This contains the pinned versions of packages for use when release to production
 
-qa.cfg
+testing.cfg
   The dev config merely sets up the proper port and ip-address for the dev
   site to run on.
 

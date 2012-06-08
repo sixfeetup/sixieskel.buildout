@@ -67,8 +67,8 @@ class SixieBuildout(BaseTemplate):
             default=0,
         ),
         IntVar(
-            'qa_port_offset',
-            'QA/Staging project port number (to be added to the base number)',
+            'testing_port_offset',
+            'Testing/Staging project port number (to be added to the base number)',
             default=0,
         ),
         IntVar(
@@ -107,7 +107,7 @@ class SixieBuildout(BaseTemplate):
             modes=(EXPERT,),
         ),
         StringVar(
-            'qa_ip',
+            'testing_ip',
             'Dev IP address',
             default='10.12.2.3',
             modes=(EXPERT,),
