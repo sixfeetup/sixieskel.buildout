@@ -7,6 +7,11 @@ parts +=
 \# in theory, but this works much better...
     plonesite
 
+\# We cache all the downloaded resources in "cache"
+extends-cache = \${buildout:directory}/cache/extends
+download-cache = \${buildout:directory}/cache/downloads
+eggs-directory = \${buildout:directory}/cache/eggs
+
 [versions]
 ################################
 # pin any development packages

@@ -188,7 +188,11 @@ class SixieBuildout(BaseTemplate):
             subprocess.call('svn ps svn:ignore -F IGNORE.txt .', shell=True)
             subprocess.call(
                 'svn ps svn:ignore -F src/IGNORE.txt src', shell=True)
-
+            # Ignore the cache dirs one by one
+            for drr in ['eggs', 'extends', 'downloads']:
+                subprocess.call(
+                    'svn ps svn:ignore -F cache/IGNORE.txt cache/%s' % drr,
+                    shell=True)
             msg = '"Checking in initial buildout for %s"' % vars['project']
             subprocess.call(
                 'svn ci -m %s' % msg,
