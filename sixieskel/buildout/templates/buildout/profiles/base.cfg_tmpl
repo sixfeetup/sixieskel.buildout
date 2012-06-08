@@ -27,20 +27,22 @@ base-parts =
     zope2
 #end if
     instance
-    instance-debug
     zeoserver
     checkinterval
+    z3c.offlinepack
+    \${buildout:cronjobs}
 
 parts = \${buildout:base-parts}
+
+\# List of cron jobs, usually applied in release configurations like
+\# prod. We default the value here so we can add it into the list of
+\# parts.
+cronjobs = 
 
 \# Extend the version config file
 extends =
 #if $plone_version != '3.1'
     http://dist.plone.org/release/$plone_version/versions.cfg
-#end if
-#if $major_version >= 4
-\# TODO: check to see if there is a more recent plone.app.caching release out
-    http://good-py.appspot.com/release/plone.app.caching/1.0b2
 #end if
     versions.cfg
 versions = versions
@@ -119,16 +121,6 @@ environment-vars =
     PTS_LANGUAGES en
 \#    TMPDIR /var/tmp
 
-\# This instance will be available at all times to debug a running
-\# Zope installation. It will be running in debug mode and have
-\# the PDBDebugMode product installed.
-[instance-debug]
-<= instance
-http-address = 51000
-debug-mode = on
-verbose-security = on
-eggs += Products.PDBDebugMode
-
 [zeoserver]
 #if $pre_plone4
 recipe = plone.recipe.zope2zeoserver
@@ -143,6 +135,18 @@ pack-days = 7
 [checkinterval]
 recipe = zc.recipe.egg
 eggs = jarn.checkinterval
+
+[z3c.offlinepack]
+recipe = zc.recipe.egg:scripts
+#if $pre_plone4
+extra-paths = \${zope2:location}/lib/python
+#end if
+
+[cron-dbpack]
+recipe = z3c.recipe.usercrontab
+# Once a week on sunday at midnight
+times = @weekly
+command = \${buildout:bin-directory}/zeopack
 
 [plonesite]
 recipe = collective.recipe.plonesite
