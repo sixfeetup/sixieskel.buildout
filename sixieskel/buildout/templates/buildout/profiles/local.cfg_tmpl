@@ -119,7 +119,6 @@ eggs =
     \${instance:eggs}
     PasteScript
     ZopeSkel
-    tha.coverage
 
 [i18ndude]
 recipe = zc.recipe.egg
