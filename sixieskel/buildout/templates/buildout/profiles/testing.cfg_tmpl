@@ -8,3 +8,8 @@ http-address = \${instance:ip-address}:$http_address
 zeo-address = \${instance:ip-address}:$zeo_address
 ip-address = $testing_ip
 effective-user = zope
+
+#if $project_name
+[plonesite]
+profiles += ${project_name}.policy:qa
+#end if
