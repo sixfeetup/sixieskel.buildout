@@ -29,6 +29,7 @@ base-parts =
     instance
     zeoserver
     checkinterval
+    z3c.offlinepack
     \${buildout:cronjobs}
 
 parts = \${buildout:base-parts}
@@ -134,6 +135,12 @@ pack-days = 7
 [checkinterval]
 recipe = zc.recipe.egg
 eggs = jarn.checkinterval
+
+[z3c.offlinepack]
+recipe = zc.recipe.egg:scripts
+#if $pre_plone4
+extra-paths = \${zope2:location}/lib/python
+#end if
 
 [cron-dbpack]
 recipe = z3c.recipe.usercrontab
