@@ -80,13 +80,11 @@ class SixieBuildout(BaseTemplate):
             'zope_user',
             'Zope root admin user',
             default='admin',
-            modes=(EXPERT,),
         ),
         StringVar(
             'zope_password',
             'Zope root admin password '
             '(will be generated if left blank, requires pwgen)',
-            modes=(EXPERT,),
         ),
         IntVar(
             'http_port_base',
