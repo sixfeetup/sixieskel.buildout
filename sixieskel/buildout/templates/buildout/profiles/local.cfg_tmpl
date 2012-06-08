@@ -36,9 +36,6 @@ parts =
 \#   in theory, but this works much better...
     plonesite
 
-develop = 
-\#    src/my.package
-
 [tags]
 recipe = z3c.recipe.tag:tags
 eggs = \${instance:eggs}
