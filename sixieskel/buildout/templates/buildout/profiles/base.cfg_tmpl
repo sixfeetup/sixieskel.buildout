@@ -27,6 +27,7 @@ base-parts =
     zope2
 #end if
     instance
+    instance-debug
     zeoserver
     checkinterval
 
@@ -117,6 +118,16 @@ environment-vars =
     PYTHON_EGG_CACHE \${buildout:directory}/var/.python-eggs
     PTS_LANGUAGES en
 \#    TMPDIR /var/tmp
+
+\# This instance will be available at all times to debug a running
+\# Zope installation. It will be running in debug mode and have
+\# the PDBDebugMode product installed.
+[instance-debug]
+<= instance
+http-address = 51000
+debug-mode = on
+verbose-security = on
+eggs += Products.PDBDebugMode
 
 [zeoserver]
 #if $pre_plone4
