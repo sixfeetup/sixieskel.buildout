@@ -32,6 +32,7 @@ parts =
     omelette
     i18ndude
     test
+    checkversions
 \#   This should live in the base.cfg parts
 \#   in theory, but this works much better...
     plonesite
@@ -70,6 +71,10 @@ defaults =
     --nowarn
 packages =
 #    my.package
+
+[checkversions]
+recipe = zc.recipe.egg
+eggs = z3c.checkversions [buildout]
 
 #if $plone_version == '3.1'
 [plone]
