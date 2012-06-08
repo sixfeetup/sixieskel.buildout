@@ -44,6 +44,7 @@ eggs =
 \# Gloworm + CacheFu may cause issues
 \#    Products.Gloworm
 
+#if $plone_version == '3.1'
 zcml =
     plone.reload
     zope.testrecorder
@@ -52,6 +53,7 @@ zcml =
 #end if
     sixfeetup.customfolderalert
 
+#end if
 \# Here are some interactive shells.  one based on IPython that loads up like zopectl debug
 \# zopepy is a simple interpreter that gives you access to all the eggs/Products but without loading up the Plone site
 
