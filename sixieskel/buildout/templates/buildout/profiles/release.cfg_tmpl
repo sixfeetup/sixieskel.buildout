@@ -3,6 +3,7 @@ extends =
     base.cfg
 parts += 
 \#   products-release
+    instance-debug
 \# This should live in the base.cfg parts
 \# in theory, but this works much better...
     plonesite
@@ -12,6 +13,18 @@ parts +=
 deprecation-warnings = off
 \#products +=
 \#    \${products-release:location}
+
+\# This instance will be available at all times to debug a running
+\# Zope installation. It will be running in debug mode and have
+\# the PDBDebugMode product installed.
+[instance-debug]
+<= instance
+http-address = 51000
+debug-mode = on
+verbose-security = on
+eggs = 
+    \${instance:eggs}
+    Products.PDBDebugMode
 
 \# These are the Zope 2 style Products that are in subversion only (no tarball)
 [products-release]
