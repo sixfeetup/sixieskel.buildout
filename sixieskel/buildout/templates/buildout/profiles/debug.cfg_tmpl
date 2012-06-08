@@ -9,10 +9,11 @@
 parts =
     ipzope
     zopepy
-    pylint
-    pyflakes
-    pep8
-    reviewboard
+\# If you need these tools, uncomment them
+\#    pylint
+\#    pyflakes
+\#    pep8
+\#    reviewboard
 
 \# plone.reload:
 \#     you can reload the zcml in your site by running the following
