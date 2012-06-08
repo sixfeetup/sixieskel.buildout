@@ -42,18 +42,6 @@ parts =
 develop = 
 \#    src/my.package
 
-#if $plone_version == '3.1'
-\# Uncomment the following line and the versions.cfg
-\# above to use the production versions locally.
-\#versions = versions
-
-#end if
-#if $plone_version != '3.1'
-[versions]
-\# pin versions locally
-\#some.package = 0.1
-
-#end if
 #if not $pre_plone4
 \# NOTE: latest roadrunner release as of this writing (2/10/10) does
 \#       not support Plone 4. Please check back later :)
