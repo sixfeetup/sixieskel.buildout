@@ -138,6 +138,7 @@ recipe = plone.recipe.zeoserver
 blob-storage = \${buildout:directory}/var/blobstorage
 #end if
 zeo-address = \${instance:zeo-address}
+pack-days = 7
 
 [checkinterval]
 recipe = zc.recipe.egg
