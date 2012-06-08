@@ -82,7 +82,7 @@ recipe = plone.recipe.plone < 3.2-dev
 #end if
 #if $pre_plone4
 [zope2]
-\# allow i18ndude to instll properly
+\# Allow i18ndude to install properly
 skip-fake-eggs += 
     zope.interface
 
