@@ -59,7 +59,7 @@ class SixieBuildout(BaseTemplate):
         StringVar(
             'plone_version',
             'Plone version (enter 3.1 to get the old style install)',
-            default='4.0.5',
+            default='4.1.5',
             ),
         IntVar(
             'local_port_offset',
