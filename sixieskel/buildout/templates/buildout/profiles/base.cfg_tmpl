@@ -29,8 +29,14 @@ base-parts =
     instance
     zeoserver
     checkinterval
+    \${buildout:cronjobs}
 
 parts = \${buildout:base-parts}
+
+\# List of cron jobs, usually applied in release configurations like
+\# prod. We default the value here so we can add it into the list of
+\# parts.
+cronjobs = 
 
 \# Extend the version config file
 extends =
@@ -128,6 +134,12 @@ pack-days = 7
 [checkinterval]
 recipe = zc.recipe.egg
 eggs = jarn.checkinterval
+
+[cron-dbpack]
+recipe = z3c.recipe.usercrontab
+# Once a week on sunday at midnight
+times = @weekly
+command = \${buildout:bin-directory}/zeopack
 
 [plonesite]
 recipe = collective.recipe.plonesite

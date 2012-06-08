@@ -4,6 +4,9 @@ extends = release.cfg
 \# Uncomment to add the two extra zope clients
 \#parts += instance2 instance3
 
+\# Add the database packing job
+cronjobs += cron-dbpack
+
 [instance]
 #set $http_address = int($http_port_base) + int($prod_port_offset)
 #set $zeo_address = int($zeo_port_base) + int($prod_port_offset)
