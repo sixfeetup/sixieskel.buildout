@@ -7,7 +7,7 @@
 z3c.recipe.tag = 0.3.0
 #if pre_plone4
 ipython = 0.10.1
-collective.recipes.plonesite = 1.4.3
+collective.recipe.plonesite = 1.4.3
 plone.reload = 1.5
 zope.interface = 3.8.0
 #end if
