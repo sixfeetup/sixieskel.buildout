@@ -23,18 +23,10 @@ parts =
 \#     http://<zope host>:<zope port>/++resource++recorder/index.html
 eggs =
     plone.reload
-    zope.testrecorder
-#if pre_plone4
-    collective.workflowed
-#end if
-\#    Products.ZopeProfiler
     Products.PDBDebugMode
-    Products.Clouseau
     Products.PrintingMailHost
     Products.DocFinderTab
-    Products.PTProfiler
     Products.DCWorkflowGraph
-    Products.PolicyTestCase
     sixfeetup.customfolderalert
 #if not pre_plone4
     plone.app.debugtoolbar
@@ -43,14 +35,21 @@ eggs =
 \# XXX READ THE PRODUCT PAGE BEFORE ENABLING
 \# Gloworm + CacheFu may cause issues
 \#    Products.Gloworm
+\# The following might be useful, uncomment them if needed
+\#    Products.ZopeProfiler
+\#    Products.Clouseau
+\#    Products.PolicyTestCase
+\#    Products.PTProfiler
+\#    zope.testrecorder
+#if pre_plone4
+\#    collective.workflowed
+#end if
 
 #if $plone_version == '3.1'
 zcml =
     plone.reload
-    zope.testrecorder
-#if pre_plone4
-    collective.workflowed
-#end if
+\#    zope.testrecorder
+\#    collective.workflowed
     sixfeetup.customfolderalert
 
 #end if
