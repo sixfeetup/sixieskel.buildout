@@ -32,20 +32,12 @@ parts =
     omelette
     i18ndude
     test
-#if $pre_plone4
-    roadrunner
-#end if
 \#   This should live in the base.cfg parts
 \#   in theory, but this works much better...
     plonesite
 
 develop = 
 \#    src/my.package
-
-#if not $pre_plone4
-\# NOTE: latest roadrunner release as of this writing (2/10/10) does
-\#       not support Plone 4. Please check back later :)
-#end if
 
 [tags]
 recipe = z3c.recipe.tag:tags
@@ -81,11 +73,6 @@ defaults =
     --nowarn
 packages =
 #    my.package
-
-[roadrunner]
-recipe = roadrunner:plone
-packages-under-test =
-\#    my.package
 
 #if $plone_version == '3.1'
 [plone]
