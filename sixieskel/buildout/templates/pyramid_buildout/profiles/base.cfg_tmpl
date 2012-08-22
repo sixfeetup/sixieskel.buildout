@@ -85,4 +85,3 @@ recipe = z3c.recipe.usercrontab
 # Once a week on sunday at midnight
 times = @weekly
 command = \${buildout:bin-directory}/zeopack
-

@@ -56,4 +56,3 @@ recipe = collective.recipe.omelette
 eggs = \${pyramid:eggs}
 ignore-develop = True
 ignores = setuptools
-
