@@ -1,0 +1,59 @@
+[buildout]
+extends = base.cfg
+parts +=
+    test
+    omelette
+    tags
+#    tags-update-vi
+
+auto-checkout = *
+always-checkout = force
+
+[pyramid]
+eggs +=
+    eye
+    ipython
+    WebError
+
+[test]
+recipe = zc.recipe.egg
+eggs =
+    \${pyramid:eggs}
+    nose
+scripts =
+    nosetests=test
+
+[paster-config]
+log_level = DEBUG
+debug = true
+includes = pyramid_debugtoolbar
+pipeline_extras = egg:WebError#evalerror
+#set $http_port = int($http_port_base) + int($local_port_offset)
+port = $http_port
+
+[zeo-config]
+#set $zeo_port = int($zeo_port_base) + int($local_port_offset)
+zeo_port = $zeo_port
+
+[supervisor]
+reload = --reload
+
+[tags]
+recipe = z3c.recipe.tag:tags
+eggs = \${pyramid:eggs}
+
+[tags-update]
+recipe = plone.recipe.command
+command = \${buildout:bin-directory}/tags \${:tag-options}
+update-command = \${:command}
+
+[tags-update-vi]
+<= tags-update
+tag-options = vi
+
+[omelette]
+recipe = collective.recipe.omelette
+eggs = \${pyramid:eggs}
+ignore-develop = True
+ignores = setuptools
+

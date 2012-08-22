@@ -1,0 +1,7 @@
+\# These versions will pin our release profiles to a specific version
+\# this will help with repeatability.
+[buildout]
+versions = versions
+
+[versions]
+

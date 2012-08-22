@@ -210,3 +210,71 @@ class SixieBuildout(BaseTemplate):
         print "  Zope admin user    : %s" % vars['zope_user']
         print "  Zope admin password: %s" % vars["zope_password"]
         print "-----------------------------------------------------------"
+
+
+class SixiePyramidBuildout(BaseTemplate):
+    _template_dir = 'templates/pyramid_buildout'
+    summary = "A Pyramid buildout following Six Feet Up Standards."
+    category = "Six Feet Up"
+    default_required_structures = ['sixie_fabfile', 'bootstrap']
+    required_templates = []
+    use_cheetah = True
+    vars = copy.deepcopy(BaseTemplate.vars)
+    vars.extend([
+        StringVar(
+            'project_name',
+            'Project name (used for dist and fabric set up)',
+        ),
+        IntVar(
+            'local_port_offset',
+            'Local project port number (to be added to the base number)',
+            default=0,
+        ),
+        IntVar(
+            'http_port_base',
+            'HTTP port (51000 range)',
+            default=51000,
+            modes=(EXPERT,),
+        ),
+        IntVar(
+            'zeo_port_base',
+            'Base zeoserver port.',
+            default=53000,
+            modes=(EXPERT,),
+        ),
+    ])
+
+    def check_vars(self, vars, cmd):
+        result = BaseTemplate.check_vars(self, vars, cmd)
+        if vars['project_name']:
+            self.required_structures.append('buildouthttp')
+        return result
+
+    def _buildout(self, output_dir):
+        os.chdir(output_dir)
+        print "Bootstrapping the buildout"
+        subprocess.call(["python", "bootstrap.py"])
+        print "Configuring the buildout"
+        subprocess.call(["bin/buildout", "-n"])
+
+    def post(self, command, output_dir, vars):
+        output_dir = os.path.abspath(output_dir)
+        os.chmod(os.path.join(output_dir, "scripts", "release.sh"), 0755)
+        project_name = vars['project_name']
+        # this is evil, I apologize. Paster can't handle .files in templates.
+        gitignore_fp = os.path.join(output_dir, ".gitignore")
+        gitignore_file = open(gitignore_fp, "w")
+        gitignore_file.write("\n".join(IGNORE_FILES))
+        gitignore_file.close()
+        print "-----------------------------------------------------------"
+        print
+        print "Generation finished"
+        print "You probably want to run python bootstrap.py and then"
+        print "run bin/buildout -v"
+        print
+        print "See README.txt for details"
+        print
+        if project_name:
+            print "NOTE: YOU NEED A PRIVATE DIST PASSWORD, ASK A PIRATE."
+            print "      Then place the password in %s/.httpauth" % output_dir
+            print

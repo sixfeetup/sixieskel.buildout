@@ -1,0 +1,11 @@
+[buildout]
+extends =
+    base.cfg
+parts += 
+\#   products-release
+
+\# These are the Zope 2 style Products that are in subversion only (no tarball)
+[products-release]
+recipe = infrae.subversion
+urls = 
+\#    https://svn/svn/repo/MyProduct/tags/1.0 MyProduct

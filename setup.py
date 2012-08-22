@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '1.3.1'
+version = '1.4.0'
 
 setup(
     name='sixieskel.buildout',
@@ -27,6 +27,7 @@ setup(
     entry_points="""
     [paste.paster_create_template]
     sfu_buildout = sixieskel.buildout.template:SixieBuildout
+    sfu_pyramid_buildout = sixieskel.buildout.template:SixiePyramidBuildout
 
     [templer.templer_structure]
     sixie_fabfile = sixieskel.buildout.structure:FabFileStructure

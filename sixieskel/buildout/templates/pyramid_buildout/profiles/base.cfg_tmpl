@@ -1,0 +1,100 @@
+[buildout]
+find-links =
+#if $project_name
+\# In order to use the private dist URL, you will need the username and
+\# password set up in the \${buildout:directory}/.httpauth file
+\#    https://dist.sixfeetup.com/private/$project_name
+#end if
+    http://dist.sixfeetup.com/public
+    http://effbot.org/downloads
+
+\# add in the setuptools fixer so that a rogue package
+\# can't break the buildout
+extensions =
+    jarn.setuptoolsfixer
+    mr.developer
+    lovely.buildouthttp
+
+\# we set up base-parts so that we can add in parts in other configs
+base-parts =
+    pyramid
+    paster-config
+    zeo-config
+    supervisor
+
+parts = \${buildout:base-parts}
+
+\# Extend the version config file
+extends =
+    versions.cfg
+versions = versions
+
+[sources]
+\# <name> = <kind> [key=value] <url> [path] [key=value]
+#if $project_name
+\#${project_name} = git https://git.sixfeetup.com/git/$project_name/${project_name}.git
+#end if
+
+
+[pyramid]
+recipe = zc.recipe.egg
+dependent-scripts = true
+eggs =
+#if $project_name
+    $project_name
+#end if
+interpreter = py
+
+[paster-config]
+recipe = collective.recipe.template
+input = templates/paster.ini.tmpl
+output = \${buildout:directory}/etc/paster.ini
+appname = $project_name
+package_name = $project_name
+log_level = WARN
+host = 0.0.0.0
+var_dir = \${buildout:directory}/var
+debug = false
+includes =
+pipeline_extras =
+
+[zeo-config]
+recipe = collective.recipe.template
+input = templates/zeo.conf.tmpl
+output = \${buildout:directory}/etc/zeo.conf
+var_dir = \${paster-config:var_dir}
+#set $zeo_port = int($zeo_port_base) + int($local_port_offset)
+zeo_port = 
+
+[supervisor]
+recipe = collective.recipe.supervisor
+reload =
+programs =
+    10 zeo \${buildout:bin-directory}/runzeo [-C \${buildout:directory}/etc/zeo.conf] \${buildout:directory}
+    20 paste \${buildout:bin-directory}/pserve [\${buildout:directory}/etc/paster.ini \${:reload}] \${buildout:directory}
+
+
+\# this should already be the default
+default-zpublisher-encoding = utf-8
+
+\# set the timezone at a bare MINIMUM
+environment-vars = 
+    TZ America/New_York
+    PYTHON_EGG_CACHE \${buildout:directory}/var/.python-eggs
+    PTS_LANGUAGES en
+\#    TMPDIR /var/tmp
+
+
+[checkinterval]
+recipe = zc.recipe.egg
+eggs = jarn.checkinterval
+
+[z3c.offlinepack]
+recipe = zc.recipe.egg:scripts
+
+[cron-dbpack]
+recipe = z3c.recipe.usercrontab
+# Once a week on sunday at midnight
+times = @weekly
+command = \${buildout:bin-directory}/zeopack
+
