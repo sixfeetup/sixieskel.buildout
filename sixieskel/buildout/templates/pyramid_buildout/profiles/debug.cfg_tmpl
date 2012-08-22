@@ -5,8 +5,6 @@ parts =
 \#    pyflakes
 \#    pep8
 
-
-
 [pyflakes]
 recipe = zc.recipe.egg
 scripts = pyflakes
