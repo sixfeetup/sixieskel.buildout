@@ -35,7 +35,6 @@ versions = versions
 \#${project_name} = git https://git.sixfeetup.com/git/$project_name/${project_name}.git
 #end if
 
-
 [pyramid]
 recipe = zc.recipe.egg
 dependent-scripts = true
