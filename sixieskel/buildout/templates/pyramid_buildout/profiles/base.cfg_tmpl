@@ -73,18 +73,6 @@ programs =
     10 zeo \${buildout:bin-directory}/runzeo [-C \${buildout:directory}/etc/zeo.conf] \${buildout:directory}
     20 paste \${buildout:bin-directory}/pserve [\${buildout:directory}/etc/paster.ini \${:reload}] \${buildout:directory}
 
-
-\# this should already be the default
-default-zpublisher-encoding = utf-8
-
-\# set the timezone at a bare MINIMUM
-environment-vars = 
-    TZ America/New_York
-    PYTHON_EGG_CACHE \${buildout:directory}/var/.python-eggs
-    PTS_LANGUAGES en
-\#    TMPDIR /var/tmp
-
-
 [checkinterval]
 recipe = zc.recipe.egg
 eggs = jarn.checkinterval
