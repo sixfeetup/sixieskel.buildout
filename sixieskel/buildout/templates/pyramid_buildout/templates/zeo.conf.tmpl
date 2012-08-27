@@ -1,7 +1,7 @@
 %define INSTANCE ${var_dir}
 
 <zeo>
-  address $INSTANCE:${zeo_port}/zeo.sock
+  address $INSTANCE/zeo.sock
   read-only false
   invalidation-queue-size 100
   pid-filename $INSTANCE/zeo.pid
