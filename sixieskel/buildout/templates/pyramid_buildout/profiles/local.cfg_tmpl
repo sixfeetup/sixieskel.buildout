@@ -1,5 +1,8 @@
 [buildout]
 extends = base.cfg
+
+extensions += buildout.dumppickedversions
+
 parts +=
     test
     omelette
