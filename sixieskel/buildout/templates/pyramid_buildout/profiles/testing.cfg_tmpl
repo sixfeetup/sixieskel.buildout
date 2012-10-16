@@ -1,4 +1,4 @@
 [buildout]
 extends = release.cfg
 
-parts = ${buildout:base-parts}
+parts = \${buildout:base-parts}
