@@ -1,0 +1,34 @@
+\#!/bin/sh
+#set $project = $project.split('-')[0]
+profile="\$1"
+version="\$2"
+
+if [ -z "\$2" ]; then
+    echo "Usage: \$0 (dev|maint|prod) buildout_version" >&2
+    exit 1
+fi
+
+case "\$1" in
+    dev)
+        sctl_name="$project-zeo $project-zss"
+        ;;
+
+    maint)
+        sctl_name="$project-zss $project-zeo"
+        ;;
+
+    prod)
+        sctl_name="$project-zeo $project-zss"
+        ;;
+
+    *)
+        echo "Usage: \$0 (dev|maint|prod) buildout_version" >&2
+        exit 1
+        ;;
+esac
+
+/usr/local/bin/supervisorctl stop \$sctl_name
+/usr/local/bin/svn sw https://svn.sixfeetup.com/svn/private/$project/$project-buildout/tags/\$version
+/usr/local/bin/svn up
+./bin/buildout -v
+/usr/local/bin/supervisorctl start \$sctl_name

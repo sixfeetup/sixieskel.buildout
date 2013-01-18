@@ -278,3 +278,8 @@ class SixiePyramidBuildout(BaseTemplate):
             print "NOTE: YOU NEED A PRIVATE DIST PASSWORD, ASK A PIRATE."
             print "      Then place the password in %s/.httpauth" % output_dir
             print
+
+
+class SixiePyramidZodbBuildout(SixiePyramidBuildout):
+    _template_dir = 'templates/pyramid_zodb_buildout'
+    summary = "A Pyramid buildout following Six Feet Up Standards, using ZODB for persistence."

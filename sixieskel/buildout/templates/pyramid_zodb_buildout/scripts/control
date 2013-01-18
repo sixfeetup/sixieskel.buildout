@@ -1,0 +1,48 @@
+#!/bin/sh
+
+set -e
+
+myself="$0"
+case "$myself" in
+    (/*)
+        mydir="$(dirname $myself)"
+        ;;
+
+    (*)
+        mydir="$(dirname $(pwd)/$myself)"
+        ;;
+esac
+
+buildout="$(dirname $mydir)"
+
+case "$1" in
+    start)
+        echo Starting buildout in $buildout
+        $mydir/../bin/zeoserver start
+        $mydir/../bin/instance start
+        ;;
+    
+    fg)
+        echo Starting buildout in $buildout
+        $mydir/../bin/zeoserver start
+        $mydir/../bin/instance fg
+        ;;
+
+    stop)
+        echo Stopping buildout in $buildout
+        $mydir/../bin/instance stop
+        $mydir/../bin/zeoserver stop
+        ;;
+
+    restart)
+        $0 stop
+        $0 start
+        ;;
+
+    *)
+        echo "Usage: $0 (start|fg|stop|restart)" >&2
+        exit 1
+        ;;
+esac
+
+exit 0

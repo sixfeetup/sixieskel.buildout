@@ -1,0 +1,19 @@
+#set $pyflakes_version = "pyflakes"
+[debugging]
+parts =
+\# If you need these tools, uncomment them
+\#    pyflakes
+\#    pep8
+
+[pyflakes]
+recipe = zc.recipe.egg
+scripts = pyflakes
+eggs =
+   ${pyflakes_version}
+\#pyflakes reads sys.argv directly
+entry-points = pyflakes=pyflakes.scripts.pyflakes:main
+
+[pep8]
+recipe = zc.recipe.egg
+eggs =
+   pep8

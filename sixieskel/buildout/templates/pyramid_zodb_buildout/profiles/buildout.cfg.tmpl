@@ -1,0 +1,15 @@
+# NOTE: This file should be copied into the buildout root directory. It
+# should never be checked in to version control so that the environment
+# stays the same over time.
+# 
+#     $ cd path/to/your-buildout
+#     $ cp profiles/buildout.cfg_tmpl buildout.cfg
+
+[buildout]
+# Once copied to the root, select the environment you are releasing to
+# by uncommenting the appropriate line below.
+extends =
+#    profiles/local.cfg
+#    profiles/testing.cfg
+#    profiles/prod.cfg
+#    profiles/staging.cfg

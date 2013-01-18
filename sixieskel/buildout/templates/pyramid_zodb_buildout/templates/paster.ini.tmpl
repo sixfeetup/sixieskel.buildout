@@ -1,0 +1,54 @@
+[app:main]
+use = egg:${appname}
+
+pyramid.reload_templates = ${debug}
+pyramid.debug_authorization = false
+pyramid.debug_notfound = ${debug}
+pyramid.debug_routematch = false
+pyramid.debug_templates = ${debug}
+pyramid.default_locale_name = en
+tm.attempts = 3
+zodbconn.uri = zeo://${var_dir}/zeo.sock?blob_dir=${var_dir}/blobs&shared_blob_dir=on
+
+[server:main]
+use = egg:Paste#http
+host = ${host}
+port = ${port}
+
+
+# Begin logging configuration
+
+[loggers]
+keys = root, ${appname}
+
+[handlers]
+keys = console, filelog
+
+[formatters]
+keys = generic
+
+[logger_root]
+level = ${log_level}
+handlers = console, filelog
+
+[logger_${appname}]
+level = ${log_level}
+handlers = console, filelog
+qualname = ${appname}
+
+[handler_console]
+class = StreamHandler
+args = (sys.stderr,)
+level = NOTSET
+formatter = generic
+
+[handler_filelog]
+class = FileHandler
+args = ('${var_dir}/event.log','a')
+level = ${log_level}
+formatter = generic
+
+[formatter_generic]
+format = %(asctime)s %(levelname)-5.5s [%(name)s][%(threadName)s] %(message)s
+
+# End logging configuration

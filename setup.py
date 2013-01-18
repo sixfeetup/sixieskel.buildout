@@ -28,6 +28,7 @@ setup(
     [paste.paster_create_template]
     sfu_buildout = sixieskel.buildout.template:SixieBuildout
     sfu_pyramid_buildout = sixieskel.buildout.template:SixiePyramidBuildout
+    sfu_pyramid_zodb_buildout = sixieskel.buildout.template:SixiePyramidZodbBuildout
 
     [templer.templer_structure]
     sixie_fabfile = sixieskel.buildout.structure:FabFileStructure
