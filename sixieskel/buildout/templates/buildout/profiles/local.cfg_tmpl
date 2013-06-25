@@ -9,7 +9,11 @@ extends =
 \# unzip eggs that are zip safe
 unzip = true
 
+#if pre_plone4
 extensions += buildout.dumppickedversions
+#else
+show-picked-versions = true
+#end if
 
 \# mr.developer settings to always checkout all eggs and force them
 \# to update

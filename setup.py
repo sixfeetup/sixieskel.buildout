@@ -33,5 +33,6 @@ setup(
     [templer.templer_structure]
     sixie_fabfile = sixieskel.buildout.structure:FabFileStructure
     buildouthttp = sixieskel.buildout.structure:BuildoutHttp
+    bootstrap2 = sixieskel.buildout.structure:Bootstrap2
     """,
     )

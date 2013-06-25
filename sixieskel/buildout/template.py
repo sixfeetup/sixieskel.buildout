@@ -42,7 +42,7 @@ class SixieBuildout(BaseTemplate):
     _template_dir = 'templates/buildout'
     summary = "A Plone 3.x+ buildout following the Six Feet Up standards"
     category = "Six Feet Up"
-    default_required_structures = ['sixie_fabfile', 'bootstrap']
+    default_required_structures = ['sixie_fabfile', 'bootstrap2']
     required_templates = []
     use_cheetah = True
     vars = copy.deepcopy(BaseTemplate.vars)
@@ -132,6 +132,9 @@ class SixieBuildout(BaseTemplate):
             if not passwd:
                 passwd = 'admin'
             result['zope_password'] = passwd
+        if int(result['plone_version'].split('.')[0]) < 4:
+            self.required_structures.remove('bootstrap2')
+            self.required_structures.append('bootstrap')
         # XXX: var.structures can't handle this case yet
         if vars['project_name']:
             self.required_structures.append('buildouthttp')
@@ -216,7 +219,7 @@ class SixiePyramidBuildout(BaseTemplate):
     _template_dir = 'templates/pyramid_buildout'
     summary = "A Pyramid buildout following Six Feet Up Standards."
     category = "Six Feet Up"
-    default_required_structures = ['sixie_fabfile', 'bootstrap']
+    default_required_structures = ['sixie_fabfile', 'bootstrap2']
     required_templates = []
     use_cheetah = True
     vars = copy.deepcopy(BaseTemplate.vars)
