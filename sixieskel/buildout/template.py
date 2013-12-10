@@ -21,7 +21,6 @@ IGNORE_FILES = [
     '.installed.cfg',
     'dumped-versions.cfg',
     'tags',
-    'fabfile*',
     '.mr.developer.cfg',
     'buildout.cfg',
 ]
