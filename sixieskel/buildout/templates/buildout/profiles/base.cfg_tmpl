@@ -47,9 +47,13 @@ extends =
     versions.cfg
 versions = versions
 
+#if $unified_buildout
+develop = .
+#end if
+
 [sources]
 \# <name> = <kind> [key=value] <url> [path] [key=value]
-#if $project_name
+#if $project_name and not $unified_buildout
 \#${project_name}.policy = svn https://svn.sixfeetup.com/svn/private/$project_name/${project_name}.policy/trunk
 \#${project_name}.content = svn https://svn.sixfeetup.com/svn/private/$project_name/${project_name}.content/trunk
 \#${project_name}.theme = svn https://svn.sixfeetup.com/svn/private/$project_name/${project_name}.theme/trunk
@@ -103,7 +107,9 @@ eggs =
     \${plone:eggs}
     elementtree
 #end if
-#if $project_name
+#if $unified_buildout
+    ${project_name}
+#else if $project_name
 \#    ${project_name}.policy
 #end if
 #if $plone_version == '3.1'
@@ -154,7 +160,10 @@ instance = instance
 zeoserver = zeoserver
 site-id = $site_name
 admin-user = $zope_user
-#if $project_name
+#if $include_policy
+profiles-initial = ${project_name}.policy:initial
+profiles = ${project_name}.policy:default
+#else if $project_name
 \#profiles-initial = ${project_name}.policy:initial
 \#profiles = ${project_name}.policy:default
 #end if

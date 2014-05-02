@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="${project_name}.policy">
+
+  <genericsetup:upgradeStep
+      title="Set catalog logging progress"
+      description="Set the logging progress so that the catalog doesn't update silently"
+      source="0"
+      destination="001"
+      handler="sixfeetup.utils.helpers.catalog_progress"
+      sortkey="1"
+      profile="${project_name}.policy:default"
+      />
+
+</configure>

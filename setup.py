@@ -34,5 +34,9 @@ setup(
     sixie_fabfile = sixieskel.buildout.structure:FabFileStructure
     buildouthttp = sixieskel.buildout.structure:BuildoutHttp
     bootstrap2 = sixieskel.buildout.structure:Bootstrap2
+    unified = sixieskel.buildout.structure:UnifiedBUildout
+    content_pkg = sixieskel.buildout.structure:ContentPackage
+    policy_pkg = sixieskel.buildout.structure:PolicyPackage
+    theme_pkg = sixieskel.buildout.structure:ThemePackage
     """,
     )

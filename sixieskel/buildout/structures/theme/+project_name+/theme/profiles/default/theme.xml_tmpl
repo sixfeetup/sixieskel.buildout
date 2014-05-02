@@ -1,0 +1,4 @@
+<theme>
+    <name>${project_name}.theme</name>
+    <enabled>true</enabled>
+</theme>

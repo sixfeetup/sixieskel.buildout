@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<metadata>
+    <version>001</version>
+    <dependencies>
+#if $include_content
+        <dependency>profile-${project_name}.content:default</dependency>
+#end if
+#if $include_theme
+        <dependency>profile-${project_name}.theme:default</dependency>
+#end if
+    </dependencies>
+</metadata>

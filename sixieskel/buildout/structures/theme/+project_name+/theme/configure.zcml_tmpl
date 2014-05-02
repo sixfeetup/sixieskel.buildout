@@ -1,0 +1,29 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="${project_name}.theme">
+
+  <include package=".browser" />
+
+  <genericsetup:registerProfile
+      name="default"
+      title="${project_name or None} Theme"
+      directory="profiles/default"
+      description="Extension profile for ${project_name or None} Theme"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <plone:static
+    directory="diazo_resources"
+    type="theme"
+    />
+
+  <browser:jbot
+      directory="template_overrides"
+      layer=".interfaces.ICustomTheme"
+      />
+
+</configure>

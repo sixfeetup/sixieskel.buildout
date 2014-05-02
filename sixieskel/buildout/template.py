@@ -3,6 +3,7 @@ import os
 import subprocess
 from templer.core.base import BaseTemplate
 from templer.core.vars import EXPERT
+from templer.core.vars import BooleanVar
 from templer.core.vars import IntVar
 from templer.core.vars import StringVar
 
@@ -58,7 +59,7 @@ class SixieBuildout(BaseTemplate):
         StringVar(
             'plone_version',
             'Plone version (enter 3.1 to get the old style install)',
-            default='4.1.5',
+            default='4.3.3',
             ),
         IntVar(
             'local_port_offset',
@@ -120,8 +121,33 @@ class SixieBuildout(BaseTemplate):
             'Effective user (for dev/maint)',
             default='zope',
             modes=(EXPERT,),
-            ),
-        ])
+        ),
+        BooleanVar(
+            'unified_buildout',
+            'Is this a unified buildout?',
+            default='yes',
+        ),
+        BooleanVar(
+            'include_content',
+            'Add a content package?',
+            default='yes',
+        ),
+        BooleanVar(
+            'include_policy',
+            'Add a policy package?',
+            default='yes',
+        ),
+        BooleanVar(
+            'include_theme',
+            'Add a theme package?',
+            default='yes',
+        ),
+        StringVar(
+            'staff_password',
+            'Enter the Staff password (leave blank for auto generated)',
+            modes=(EXPERT,),
+        ),
+    ])
 
     def check_vars(self, vars, cmd):
         result = BaseTemplate.check_vars(self, vars, cmd)
@@ -131,9 +157,23 @@ class SixieBuildout(BaseTemplate):
             if not passwd:
                 passwd = 'admin'
             result['zope_password'] = passwd
+        if not vars['staff_password']:
+            # for this to work you'll need pwgen installed
+            passwd = run_cmd('pwgen -acn 9 1')
+            if not passwd:
+                passwd = 'fjosu7aw'
+            result['staff_password'] = passwd
         if int(result['plone_version'].split('.')[0]) < 4:
             self.required_structures.remove('bootstrap2')
             self.required_structures.append('bootstrap')
+        if vars['unified_buildout']:
+            self.required_structures.append('unified')
+        if vars['include_content']:
+            self.required_structures.append('content_pkg')
+        if vars['include_policy']:
+            self.required_structures.append('policy_pkg')
+        if vars['include_theme']:
+            self.required_structures.append('theme_pkg')
         # XXX: var.structures can't handle this case yet
         if vars['project_name']:
             self.required_structures.append('buildouthttp')
@@ -284,4 +324,5 @@ class SixiePyramidBuildout(BaseTemplate):
 
 class SixiePyramidZodbBuildout(SixiePyramidBuildout):
     _template_dir = 'templates/pyramid_zodb_buildout'
-    summary = "A Pyramid buildout following Six Feet Up Standards, using ZODB for persistence."
+    summary = "A Pyramid buildout following Six Feet Up Standards, \
+               using ZODB for persistence."

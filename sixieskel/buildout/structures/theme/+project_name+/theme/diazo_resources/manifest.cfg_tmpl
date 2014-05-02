@@ -1,0 +1,9 @@
+[theme]
+title = $project_name theme
+description = Diazo Theme from ${project_name}.theme package
+preview = preview.png
+
+[theme:parameters]
+portal_url = portal_state/portal_url
+ajax_load = python: 'ajax_load' in request.form
+anon_user = portal_state/anonymous

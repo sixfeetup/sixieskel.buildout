@@ -1,0 +1,56 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="${project_name}.policy">
+
+  <!-- Set up z3c.autoinlcude to scan dependencies and plugins of this package -->
+  <includePlugins package="." />
+  <includeDependencies package="." />
+
+  <!-- Upgrades are handled via its own zcml file -->
+  <include file="upgrades.zcml"/>
+  
+  <five:registerPackage package="." initialize=".initialize" />
+
+  <genericsetup:registerProfile
+      name="default"
+      title="${project_name}.policy (default)"
+      directory="profiles/default"
+      description="Installation profile for ${project_name}.policy"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:registerProfile
+      name="initial"
+      title="${project_name}.policy (initial)"
+      directory="profiles/initial"
+      description="Initial profile for ${project_name}.policy"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:registerProfile
+      name="qa"
+      title="${project_name}.policy (qa)"
+      directory="profiles/qa"
+      description="Configuration profile specifcally for QA instances of ${project_name}.policy"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:importStep
+      name="${project_name}.policy: default"
+      title="${project_name}.policy: Various steps"
+      description="Setup handlers for ${project_name}.policy"
+      handler="${project_name}.policy.setuphandlers.importVarious">
+    <depends name="content"/>
+  </genericsetup:importStep>
+
+  <genericsetup:importStep
+      name="${project_name}.policy: initial"
+      title="${project_name}.policy: Various Initial steps"
+      description="Initial Setup handlers for ${project_name}.policy"
+      handler="${project_name}.policy.setuphandlers.importVariousInitial">
+    <depends name="content"/>
+  </genericsetup:importStep>
+
+</configure>
