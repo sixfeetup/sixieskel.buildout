@@ -105,18 +105,6 @@ class SixieBuildout(BaseTemplate):
             modes=(EXPERT,),
         ),
         StringVar(
-            'testing_ip',
-            'Dev IP address',
-            default='10.12.2.3',
-            modes=(EXPERT,),
-        ),
-        StringVar(
-            'staging_ip',
-            'Maint IP address',
-            default='10.12.2.4',
-            modes=(EXPERT,),
-        ),
-        StringVar(
             'effective_user',
             'Effective user (for dev/maint)',
             default='zope',
