@@ -120,6 +120,8 @@ eggs =
     \${instance:eggs}
     PasteScript
     ZopeSkel
+    templer.dexterity
+    templer.plone.localcommands
 
 [i18ndude]
 recipe = zc.recipe.egg
