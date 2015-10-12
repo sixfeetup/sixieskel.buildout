@@ -10,13 +10,17 @@ buildout root, and then select the profile you want to run::
 
 Then you need to run::
 
- $ python bootstrap.py
+ $ virtualenv env
  
-This will install zc.buildout for you. 
+This will create an env directory with a virtual environment. You should then
+install the versions of zc.buildout and setuptools you need:
 
-To create an instance immediately, run::
+ $ env/bin/pip install zc.buildout==2.2.0
+ $ env/bin/pip install setuptools==3.6
 
- $ bin/buildout
+To create an instance, run::
+
+ $ env/bin/buildout
  
 This will download Plone's eggs and products for you, as well as other 
 dependencies, create a new Zope 2 installation, and create a new Zope instance

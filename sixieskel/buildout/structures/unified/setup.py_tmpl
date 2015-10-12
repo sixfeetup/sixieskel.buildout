@@ -29,6 +29,7 @@ setup(
         'sixfeetup.utils>=2.8',
         'Plone',
         'plone.app.caching',
+        'plone.api',
 #if $include_theme
         'z3c.jbot',
 #end if

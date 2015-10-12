@@ -154,6 +154,12 @@ recipe = z3c.recipe.usercrontab
 times = @weekly
 command = \${buildout:bin-directory}/zeopack
 
+[cron-backup]
+recipe = z3c.recipe.usercrontab
+# Once a week on Monday at midnight
+times = 0 0 * * 1
+command = \${buildout:bin-directory}/fullbackup
+
 [plonesite]
 recipe = collective.recipe.plonesite
 instance = instance

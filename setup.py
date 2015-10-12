@@ -33,7 +33,6 @@ setup(
     [templer.templer_structure]
     sixie_fabfile = sixieskel.buildout.structure:FabFileStructure
     buildouthttp = sixieskel.buildout.structure:BuildoutHttp
-    bootstrap2 = sixieskel.buildout.structure:Bootstrap2
     unified = sixieskel.buildout.structure:UnifiedBuildout
     content_pkg = sixieskel.buildout.structure:ContentPackage
     policy_pkg = sixieskel.buildout.structure:PolicyPackage

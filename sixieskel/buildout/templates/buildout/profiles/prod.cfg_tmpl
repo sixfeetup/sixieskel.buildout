@@ -1,11 +1,15 @@
 [buildout]
 extends = release.cfg
+backups-dir = \${buildout:directory}/var/backups
 
 \# Uncomment to add the two extra zope clients
-\#parts += instance2 instance3
+parts += 
+#    instance2
+#    instance3
+    backup
 
-\# Add the database packing job
-cronjobs += cron-dbpack
+\# Add the database packing, backup jobs
+cronjobs += cron-dbpack cron-backup
 
 [instance]
 #set $http_address = int($http_port_base) + int($prod_port_offset)
@@ -25,3 +29,14 @@ http-address = $http_address
 <= instance
 #set $http_address += 1
 http-address = $http_address
+
+[backup]
+# This recipe builds the backup, restore and snapshotbackup commands.
+# For options see http://pypi.python.org/pypi/collective.recipe.backup
+recipe = collective.recipe.backup
+location = \${buildout:backups-dir}/backups
+blobbackuplocation = \${buildout:backups-dir}/blobstoragebackups
+snapshotlocation = \${buildout:backups-dir}/snapshotbackups
+blobsnapshotlocation = \${buildout:backups-dir}/blobstoragesnapshots
+datafs = \${buildout:directory}/var/filestorage/Data.fs
+blob-storage = \${buildout:directory}/var/blobstorage
