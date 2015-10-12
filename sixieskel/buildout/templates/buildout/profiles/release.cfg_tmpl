@@ -11,6 +11,10 @@ parts +=
 [instance]
 \# set our common release elements here
 deprecation-warnings = off
+ip-address = localhost
+http-address = \${instance:ip-address}:8080
+zeo-address = \${instance:ip-address}:8100
+effective-user = zope
 \#products +=
 \#    \${products-release:location}
 

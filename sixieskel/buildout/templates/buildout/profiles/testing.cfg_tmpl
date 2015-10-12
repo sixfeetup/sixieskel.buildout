@@ -1,14 +1,6 @@
 [buildout]
 extends = release.cfg
 
-[instance]
-#set $http_address = int($http_port_base) + int($testing_port_offset)
-http-address = \${instance:ip-address}:$http_address
-#set $zeo_address = int($zeo_port_base) + int($testing_port_offset)
-zeo-address = \${instance:ip-address}:$zeo_address
-ip-address = localhost
-effective-user = zope
-
 #if $project_name
 [plonesite]
 profiles += ${project_name}.policy:qa

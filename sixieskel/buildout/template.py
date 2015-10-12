@@ -66,16 +66,6 @@ class SixieBuildout(BaseTemplate):
             'Local project port number (to be added to the base number)',
             default=0,
         ),
-        IntVar(
-            'testing_port_offset',
-            'Testing/Staging project port number (to be added to the base number)',
-            default=0,
-        ),
-        IntVar(
-            'prod_port_offset',
-            'Prod project port number (to be added to the base number)',
-            default=0,
-        ),
         StringVar(
             'zope_user',
             'Zope root admin user',

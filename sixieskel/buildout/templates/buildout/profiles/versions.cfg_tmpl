@@ -12,4 +12,6 @@ plone.reload = 1.5
 zope.interface = 3.8.0
 #else
 ipython = 0.12
+zc.buildout = 2.4.0
+setuptools = 18.4
 #end if
