@@ -6,7 +6,7 @@ setup(
     name='sixieskel.buildout',
     version=version,
     description="",
-    long_description=open('README.rst').read(),
+    long_description=open('README.md').read(),
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
