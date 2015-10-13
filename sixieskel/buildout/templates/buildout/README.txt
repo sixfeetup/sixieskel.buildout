@@ -18,9 +18,11 @@ install the versions of zc.buildout and setuptools you need:
  $ env/bin/pip install zc.buildout==2.4.0
  $ env/bin/pip install setuptools==18.4
 
-To create an instance, run::
+To create an instance, you can use the buildout script in `env/bin/buildout`,
+or run bootstrap to create the buildout script in `bin`::
 
- $ env/bin/buildout
+ $ env/bin/buildout bootstrap
+ $ bin/buildout
  
 This will download Plone's eggs and products for you, as well as other 
 dependencies, create a new Zope 2 installation, and create a new Zope instance
