@@ -1,2 +1,2 @@
 <?xml version="1.0"?>
-<object name="MailHost" smtp_port="2525" />
+<object name="MailHost" smtp_port="1025" />

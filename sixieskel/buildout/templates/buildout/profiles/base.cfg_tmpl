@@ -30,7 +30,6 @@ base-parts =
     zeoserver
     checkinterval
     z3c.offlinepack
-    maildump
     \${buildout:cronjobs}
 
 parts = \${buildout:base-parts}
@@ -174,6 +173,3 @@ profiles = ${project_name}.policy:default
 \#profiles-initial = ${project_name}.policy:initial
 \#profiles = ${project_name}.policy:default
 #end if
-
-[maildump]
-recipe = zc.recipe.egg
