@@ -139,7 +139,7 @@ class SixieBuildout(BaseTemplate):
             # for this to work you'll need pwgen installed
             passwd = run_cmd('pwgen -acn 9 1')
             if not passwd:
-                passwd = 'fjosu7aw'
+                passwd = 'changeme'
             result['staff_password'] = passwd
         if int(result['plone_version'].split('.')[0]) < 4:
             self.required_structures.append('bootstrap')
@@ -228,6 +228,8 @@ class SixieBuildout(BaseTemplate):
         print "Configuration summary:"
         print "  Zope admin user    : %s" % vars['zope_user']
         print "  Zope admin password: %s" % vars["zope_password"]
+        print "  staff password: %s" % vars["staff_password"]
+        print "  ^ change this in policy/setuphandlers.py if necessary "
         print "-----------------------------------------------------------"
 
 
